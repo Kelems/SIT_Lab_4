@@ -24,6 +24,25 @@ app.post("/proverka", (req, res) => {
   students.push(student);
 });
 
+app.delete("/student/:id", function (req, res) {
+  const id = req.params.id - 1;
+  if (id !== -1) students.splice(id, 1);
+  else res.send("Ошибка");
+  res.send(students);
+});
+
+app.put("/student/:id", function (req, res) {
+  let date = new Date();
+  for (var i = 0; i < students.length; i++) {
+    students[req.params.id - 1].firstName = req.query.firstName;
+    students[req.params.id - 1].lastName = req.query.lastName;
+    students[req.params.id - 1].group = req.query.group;
+    students[req.params.id - 1].date.toLocaleString();
+    break;
+  }
+  res.send([req.params.id - 1]);
+});
+
 app.get("/", (req, res) => {
   res.send("base page");
 });
